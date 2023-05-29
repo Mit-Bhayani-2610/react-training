@@ -9,6 +9,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useUserContext } from "./UserContext";
 
 export const Apple = () => {
   // const [name, setName] = useState();
@@ -17,6 +18,7 @@ export const Apple = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const Navigate = useNavigate();
   const [user, setUser] = useState([]);
+  const { setUserName } = useUserContext();
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
@@ -44,6 +46,8 @@ export const Apple = () => {
       userName: values.name,
       userEmail: values.email,
     };
+
+    setUserName(values.name);
 
     // call API to post submit the form
     const res = await axios.post("https://jsonplaceholder.typicode.com/posts", requestData);
